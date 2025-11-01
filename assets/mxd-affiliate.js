@@ -1,10 +1,10 @@
 // REPLACE WHOLE FILE: /assets/mxd-affiliate.js
 (() => {
-  // FIND: BASES / merchant inference / default subs
+  // BASES: AccessTrade deep links for nthuong09 (base đã có sub4=oneatweb)
   const BASES = {
-    shopee: "https://go.isclix.com/deep_link/6837055118319564314/4751584435713464237",
-    tiktok: "https://go.isclix.com/deep_link/6837055118319564314/6648523843406889655",
-    lazada: "https://go.isclix.com/deep_link/6837055118319564314/5369219770778085421",
+    shopee: "https://go.isclix.com/deep_link/6838510564673741003/4751584435713464237?sub4=oneatweb",
+    tiktok: "https://go.isclix.com/deep_link/6838510564673741003/6648523843406889655?sub4=oneatweb",
+    lazada: "https://go.isclix.com/deep_link/6838510564673741003/5127144557053758578?sub4=oneatweb",
   };
 
   const MERCHANT_FROM_HOST = (h) => {
@@ -38,7 +38,6 @@
       const m = img.src.match(/\/assets\/img\/products\/([^\/]+)\.webp/i);
       if (m) return m[1];
     }
-    // last resort: last path segment (may be noisy)
     try {
       const u = new URL(meta.getAttribute("href") || "#", location.origin);
       const segs = (u.pathname || "").split("/").filter(Boolean);
@@ -46,16 +45,17 @@
     } catch { return ""; }
   };
 
-  const buildSubs = (meta, card, merchant) => {
-    // Defaults (canonical): sub1=sku, sub2=merchant, sub3=tool, sub4=tuyetlethi
+  const buildSubs = (meta, card, merchant, baseHasSub4) => {
+    // Defaults: sub1=sku, sub2=merchant, sub3=tool, sub4 chỉ thêm nếu base KHÔNG có sẵn sub4
     const dflt = {
       sub1: guessSku(meta, card),
       sub2: merchant || (meta.dataset.merchant || "").toLowerCase(),
       sub3: "tool",
-      sub4: "tuyetlethi",
+      // Nếu base không có sub4, dùng 'nthuong09' làm nhãn site; nếu base đã có sub4 thì bỏ qua
+      ...(baseHasSub4 ? {} : { sub4: "nthuong09" }),
     };
-    // Allow explicit overrides via data-sub*
     const subs = { ...dflt };
+    // Cho phép override qua data-sub*
     ["sub1", "sub2", "sub3", "sub4"].forEach((k) => {
       const v = meta.dataset[k];
       if (v) subs[k] = v;
@@ -70,11 +70,12 @@
     const merchant = pickMerchant(meta, originAbs);
     const base = BASES[merchant];
 
-    // If no base or origin already isclix => return origin untouched
+    // Nếu không có base hoặc link đã là isclix thì giữ nguyên
     if (!base || isIsclix(originAbs)) return originAbs;
 
+    const baseHasSub4 = /\bsub4=/.test(base);
     const glue = base.includes("?") ? "&" : "?";
-    const subs = buildSubs(meta, card, merchant);
+    const subs = buildSubs(meta, card, merchant, baseHasSub4);
 
     let url = `${base}${glue}url=${encodeURIComponent(originAbs)}`;
     Object.entries(subs).forEach(([k, v]) => {
@@ -98,7 +99,6 @@
   };
 
   const resolveMeta = (card) => {
-    // Prefer explicit product-meta; fall back to first anchor
     return (
       card.querySelector("a.product-meta") ||
       card.querySelector("a[data-merchant]") ||

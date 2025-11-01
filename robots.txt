@@ -1,0 +1,5 @@
+# REPLACE WHOLE FILE: /robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://tuyetlethi83a.github.io/sitemap.xml

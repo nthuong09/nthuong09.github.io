@@ -1,17 +1,69 @@
 [
-  
   {
-    "sku": "ao-so-mi-trang-nu-rymola-khong-nhan-giau-nut",
-    "name": "Áo Sơ Mi Trắng Nữ Rymola, Không Nhăn, Giấu Nút",
+    "name": "Áo cardigan thông thường Nút trơn Áo len xẻ phía trước dành cho nữ",
+    "price_vnd": 177000,
+    "origin_url": "shopee.vn/Lovito-Áo-cardigan-thông-thường-Nút-trơn-Áo-len-xẻ-phía-trước-dành-cho-nữ-LNE27151-(Xanh-dương)-i.446089250.22181406521",
     "merchant": "shopee",
-    "origin_url": "https://shopee.vn/%C3%81o-S%C6%A1-Mi-Tr%E1%BA%AFng-N%E1%BB%AF-Rymola-Kh%C3%B4ng-Nh%C4%83n-Gi%E1%BA%A5u-N%C3%BAt-Tay-D%C3%A0i-C%C3%B3-Bigsize-S%C6%A1-Mi-Tr%E1%BA%AFng-C%C3%B4ng-S%E1%BB%9F-Ch%E1%BA%A5t-V%E1%BA%A3i-Cotton-Form-Su%C3%B4ng-i.8496476.6342798120?sp_atk=950dcfb9-cb5e-4abb-9615-dcdc5b5e36be&xptdk=950dcfb9-cb5e-4abb-9615-dcdc5b5e36be",
-    "image": "/assets/img/products/ao-so-mi-trang-nu-rymola-khong-nhan-giau-nut.webp",
-    "price_vnd": 199000,
+    "sku": "ao-cardigan-thong-thuong-nut-tron-ao-len-xe-phia-truoc-danh-cho-nu",
+    "image": "/assets/img/products/ao-cardigan-thong-thuong-nut-tron-ao-len-xe-phia-truoc-danh-cho-nu.webp",
     "category": "thoi-trang",
     "brand": "",
     "featured": true,
     "status": true,
-    "updated_at": "2025-10-21T15:19:36.186Z"
+    "updated_at": "2025-11-01T18:43:45.765Z",
+    "deeplink": "https://go.isclix.com/deep_link/6838510564673741003/4751584435713464237?url=shopee.vn%2FLovito-%C3%81o-cardigan-th%C3%B4ng-th%C6%B0%E1%BB%9Dng-N%C3%BAt-tr%C6%A1n-%C3%81o-len-x%E1%BA%BB-ph%C3%ADa-tr%C6%B0%E1%BB%9Bc-d%C3%A0nh-cho-n%E1%BB%AF-LNE27151-(Xanh-d%C6%B0%C6%A1ng)-i.446089250.22181406521&sub1=ao-cardigan-thong-thuong-nut-tron-ao-len-xe-phia-truoc-danh-cho-nu&sub2=shopee&sub3=tool&sub4=nthuong09"
+  },
+  {
+    "sku": "ao-croptop-ba-lo-nu-toptify",
+    "name": "Áo croptop ba lỗ nữ TOPTIFY",
+    "merchant": "shopee",
+    "origin_url": "https://shopee.vn/%C3%81o-croptop-ba-l%E1%BB%97-n%E1%BB%AF-TOPTIFY-c%E1%BB%95-l%E1%BB%8D-tr%C6%A1n-s%C3%A1t-n%C3%A1ch-thun-bo-g%C3%A2n-co-gi%C3%A3n-form-basic-Trip-Away-Top-AC221-TTF023-i.408175384.11370273132?sp_atk=00f330f5-6016-46bd-984a-0120c7a353c6&xptdk=00f330f5-6016-46bd-984a-0120c7a353c6",
+    "image": "/assets/img/products/ao-croptop-ba-lo-nu-toptify.webp",
+    "price_vnd": 99000,
+    "category": "thoi-trang",
+    "brand": "",
+    "featured": true,
+    "status": true,
+    "updated_at": "2025-10-21T15:15:59.067Z"
+  },
+  {
+    "sku": "ao-hoodie-zip-ni-bong-form-rong-nam-nu",
+    "name": "Áo Hoodie Zip Nỉ Bông Form Rộng Nam Nữ",
+    "merchant": "shopee",
+    "origin_url": "https://shopee.vn/%C3%81o-Hoodie-Zip-N%E1%BB%89-B%C3%B4ng-Form-R%E1%BB%99ng-Nam-N%E1%BB%AF-T%C3%BAi-D%C3%A2y-K%C3%A9o-N%C3%B3n-To-Logo-Th%C3%AAu-Ng%E1%BB%B1a-i.1141437072.29266108904?sp_atk=fdcc0e3b-cb46-4bd0-b186-6a275ec63eae&xptdk=fdcc0e3b-cb46-4bd0-b186-6a275ec63eae",
+    "image": "/assets/img/products/ao-hoodie-zip-ni-bong-form-rong-nam-nu.webp",
+    "price_vnd": 119000,
+    "category": "thoi-trang",
+    "brand": "",
+    "featured": false,
+    "status": true,
+    "updated_at": "2025-10-14T15:53:56.492Z"
+  },
+  {
+    "sku": "ao-khoac-ni-nam-krik-form-relaxed-chat-lieu-cotton-thiet-ke-co-tru-thanh-lich-hien-da",
+    "name": "Áo Khoác Nỉ Nam KRIK Form Relaxed Chất Liệu Cotton Thiết Kế Cổ Trụ Thanh Lịch Hiện Đại",
+    "merchant": "shopee",
+    "origin_url": "https://shopee.vn/%C3%81o-Kho%C3%A1c-N%E1%BB%89-Nam-KRIK-Form-Relaxed-Ch%E1%BA%A5t-Li%E1%BB%87u-Cotton-Thi%E1%BA%BFt-K%E1%BA%BF-C%E1%BB%95-Tr%E1%BB%A5-Thanh-L%E1%BB%8Bch-Hi%E1%BB%87n-%C4%90%E1%BA%A1i-AK5167-i.200790122.25247020068?extraParams=%7B%22display_model_id%22%3A266603434221%2C%22model_selection_logic%22%3A3%7D&sp_atk=65fd4e8f-40c3-4236-91d3-9d58582d4272&xptdk=65fd4e8f-40c3-4236-91d3-9d58582d4272",
+    "image": "/assets/img/products/ao-khoac-ni-nam-krik-form-relaxed-chat-lieu-cotton-thiet-ke-co-tru-thanh-lich-hien-da.webp",
+    "price_vnd": 679000,
+    "category": "thoi-trang",
+    "brand": "",
+    "featured": true,
+    "status": true,
+    "updated_at": "2025-10-29T14:59:26.996Z"
+  },
+  {
+    "sku": "ao-khoac-tap-gym-nu-om-sat-co-gian-tham-hut-mo-hoi-evasport",
+    "name": "Áo Khoác Tập Gym Nữ Ôm Sát Co Giãn Thấm Hút Mồ Hôi Evasport",
+    "merchant": "shopee",
+    "origin_url": "https://shopee.vn/%C3%81o-Kho%C3%A1c-T%E1%BA%ADp-Gym-N%E1%BB%AF-%C3%81o-Kho%C3%A1c-Ch%E1%BB%91ng-N%E1%BA%AFng-D%C3%A2y-K%C3%A9o-D%C3%A0i-Yoga-%C3%94m-S%C3%A1t-Co-Gi%C3%A3n-Th%E1%BA%A5m-H%C3%BAt-M%E1%BB%93-H%C3%B4i-Evasport-i.155602237.12338849351?sp_atk=08359b42-7c6c-412c-867b-462bbe70ebe1&xptdk=08359b42-7c6c-412c-867b-462bbe70ebe1",
+    "image": "/assets/img/products/ao-khoac-tap-gym-nu-om-sat-co-gian-tham-hut-mo-hoi-evasport.webp",
+    "price_vnd": 118000,
+    "category": "thoi-trang",
+    "brand": "",
+    "featured": true,
+    "status": true,
+    "updated_at": "2025-10-21T15:56:10.863Z"
   },
   {
     "sku": "ao-ni-sweater-kem-quan-shorts-form-chuan-du-size",
@@ -40,17 +92,17 @@
     "updated_at": "2025-10-11T15:56:29.283Z"
   },
   {
-    "sku": "combo-sua-tam-duong-the-dove-500g-da-min-huong-hoa-500g",
-    "name": "Combo Sữa tắm Dưỡng thể Dove 500g Da Mịn Hương Hoa 500g",
+    "sku": "ao-so-mi-trang-nu-rymola-khong-nhan-giau-nut",
+    "name": "Áo Sơ Mi Trắng Nữ Rymola, Không Nhăn, Giấu Nút",
     "merchant": "shopee",
-    "origin_url": "https://shopee.vn/Combo-S%E1%BB%AFa-t%E1%BA%AFm-D%C6%B0%E1%BB%A1ng-th%E1%BB%83-Dove-500g-Da-M%E1%BB%8Bn-H%C6%B0%C6%A1ng-Hoa-500g-T%E1%BA%A9y-Da-Ch%E1%BA%BFt-D%C6%B0%E1%BB%A1ng-%E1%BA%A8m-Dove-H%C6%B0%C6%A1ng-Hoa-Anh-%C4%90%C3%A0o-L%E1%BB%B1u-%C4%90%E1%BB%8F-298g-i.111138057.18267714914",
-    "image": "/assets/img/products/combo-sua-tam-duong-the-dove-500g-da-min-huong-hoa-500g.webp",
-    "price_vnd": 520000,
-    "category": "my-pham",
+    "origin_url": "https://shopee.vn/%C3%81o-S%C6%A1-Mi-Tr%E1%BA%AFng-N%E1%BB%AF-Rymola-Kh%C3%B4ng-Nh%C4%83n-Gi%E1%BA%A5u-N%C3%BAt-Tay-D%C3%A0i-C%C3%B3-Bigsize-S%C6%A1-Mi-Tr%E1%BA%AFng-C%C3%B4ng-S%E1%BB%9F-Ch%E1%BA%A5t-V%E1%BA%A3i-Cotton-Form-Su%C3%B4ng-i.8496476.6342798120?sp_atk=950dcfb9-cb5e-4abb-9615-dcdc5b5e36be&xptdk=950dcfb9-cb5e-4abb-9615-dcdc5b5e36be",
+    "image": "/assets/img/products/ao-so-mi-trang-nu-rymola-khong-nhan-giau-nut.webp",
+    "price_vnd": 199000,
+    "category": "thoi-trang",
     "brand": "",
     "featured": true,
     "status": true,
-    "updated_at": "2025-10-22T15:40:28.834Z"
+    "updated_at": "2025-10-21T15:19:36.186Z"
   },
   {
     "sku": "ao-the-thao-body-dai-tay-w-co-khoa-phoi-chan-vay-xep-ly",
@@ -117,7 +169,6 @@
     "status": true,
     "updated_at": "2025-10-14T16:23:36.898Z"
   },
- 
   {
     "sku": "bo-ngu-nu-tay-dai-tieu-thu",
     "name": "Bộ ngủ nữ tay dài tiểu thư",
@@ -223,58 +274,18 @@
     "updated_at": "2025-10-27T15:02:39.759Z"
   },
   {
-    "sku": "ao-croptop-ba-lo-nu-toptify",
-    "name": "Áo croptop ba lỗ nữ TOPTIFY",
+    "sku": "combo-sua-tam-duong-the-dove-500g-da-min-huong-hoa-500g",
+    "name": "Combo Sữa tắm Dưỡng thể Dove 500g Da Mịn Hương Hoa 500g",
     "merchant": "shopee",
-    "origin_url": "https://shopee.vn/%C3%81o-croptop-ba-l%E1%BB%97-n%E1%BB%AF-TOPTIFY-c%E1%BB%95-l%E1%BB%8D-tr%C6%A1n-s%C3%A1t-n%C3%A1ch-thun-bo-g%C3%A2n-co-gi%C3%A3n-form-basic-Trip-Away-Top-AC221-TTF023-i.408175384.11370273132?sp_atk=00f330f5-6016-46bd-984a-0120c7a353c6&xptdk=00f330f5-6016-46bd-984a-0120c7a353c6",
-    "image": "/assets/img/products/ao-croptop-ba-lo-nu-toptify.webp",
-    "price_vnd": 99000,
-    "category": "thoi-trang",
+    "origin_url": "https://shopee.vn/Combo-S%E1%BB%AFa-t%E1%BA%AFm-D%C6%B0%E1%BB%A1ng-th%E1%BB%83-Dove-500g-Da-M%E1%BB%8Bn-H%C6%B0%C6%A1ng-Hoa-500g-T%E1%BA%A9y-Da-Ch%E1%BA%BFt-D%C6%B0%E1%BB%A1ng-%E1%BA%A8m-Dove-H%C6%B0%C6%A1ng-Hoa-Anh-%C4%90%C3%A0o-L%E1%BB%B1u-%C4%90%E1%BB%8F-298g-i.111138057.18267714914",
+    "image": "/assets/img/products/combo-sua-tam-duong-the-dove-500g-da-min-huong-hoa-500g.webp",
+    "price_vnd": 520000,
+    "category": "my-pham",
     "brand": "",
     "featured": true,
     "status": true,
-    "updated_at": "2025-10-21T15:15:59.067Z"
+    "updated_at": "2025-10-22T15:40:28.834Z"
   },
-  {
-    "sku": "ao-hoodie-zip-ni-bong-form-rong-nam-nu",
-    "name": "Áo Hoodie Zip Nỉ Bông Form Rộng Nam Nữ",
-    "merchant": "shopee",
-    "origin_url": "https://shopee.vn/%C3%81o-Hoodie-Zip-N%E1%BB%89-B%C3%B4ng-Form-R%E1%BB%99ng-Nam-N%E1%BB%AF-T%C3%BAi-D%C3%A2y-K%C3%A9o-N%C3%B3n-To-Logo-Th%C3%AAu-Ng%E1%BB%B1a-i.1141437072.29266108904?sp_atk=fdcc0e3b-cb46-4bd0-b186-6a275ec63eae&xptdk=fdcc0e3b-cb46-4bd0-b186-6a275ec63eae",
-    "image": "/assets/img/products/ao-hoodie-zip-ni-bong-form-rong-nam-nu.webp",
-    "price_vnd": 119000,
-    "category": "thoi-trang",
-    "brand": "",
-    "featured": false,
-    "status": true,
-    "updated_at": "2025-10-14T15:53:56.492Z"
-  },
-  {
-    "sku": "ao-khoac-ni-nam-krik-form-relaxed-chat-lieu-cotton-thiet-ke-co-tru-thanh-lich-hien-da",
-    "name": "Áo Khoác Nỉ Nam KRIK Form Relaxed Chất Liệu Cotton Thiết Kế Cổ Trụ Thanh Lịch Hiện Đại",
-    "merchant": "shopee",
-    "origin_url": "https://shopee.vn/%C3%81o-Kho%C3%A1c-N%E1%BB%89-Nam-KRIK-Form-Relaxed-Ch%E1%BA%A5t-Li%E1%BB%87u-Cotton-Thi%E1%BA%BFt-K%E1%BA%BF-C%E1%BB%95-Tr%E1%BB%A5-Thanh-L%E1%BB%8Bch-Hi%E1%BB%87n-%C4%90%E1%BA%A1i-AK5167-i.200790122.25247020068?extraParams=%7B%22display_model_id%22%3A266603434221%2C%22model_selection_logic%22%3A3%7D&sp_atk=65fd4e8f-40c3-4236-91d3-9d58582d4272&xptdk=65fd4e8f-40c3-4236-91d3-9d58582d4272",
-    "image": "/assets/img/products/ao-khoac-ni-nam-krik-form-relaxed-chat-lieu-cotton-thiet-ke-co-tru-thanh-lich-hien-da.webp",
-    "price_vnd": 679000,
-    "category": "thoi-trang",
-    "brand": "",
-    "featured": true,
-    "status": true,
-    "updated_at": "2025-10-29T14:59:26.996Z"
-  },
-  {
-    "sku": "ao-khoac-tap-gym-nu-om-sat-co-gian-tham-hut-mo-hoi-evasport",
-    "name": "Áo Khoác Tập Gym Nữ Ôm Sát Co Giãn Thấm Hút Mồ Hôi Evasport",
-    "merchant": "shopee",
-    "origin_url": "https://shopee.vn/%C3%81o-Kho%C3%A1c-T%E1%BA%ADp-Gym-N%E1%BB%AF-%C3%81o-Kho%C3%A1c-Ch%E1%BB%91ng-N%E1%BA%AFng-D%C3%A2y-K%C3%A9o-D%C3%A0i-Yoga-%C3%94m-S%C3%A1t-Co-Gi%C3%A3n-Th%E1%BA%A5m-H%C3%BAt-M%E1%BB%93-H%C3%B4i-Evasport-i.155602237.12338849351?sp_atk=08359b42-7c6c-412c-867b-462bbe70ebe1&xptdk=08359b42-7c6c-412c-867b-462bbe70ebe1",
-    "image": "/assets/img/products/ao-khoac-tap-gym-nu-om-sat-co-gian-tham-hut-mo-hoi-evasport.webp",
-    "price_vnd": 118000,
-    "category": "thoi-trang",
-    "brand": "",
-    "featured": true,
-    "status": true,
-    "updated_at": "2025-10-21T15:56:10.863Z"
-  },
-  
   {
     "name": "Dây chuyền bạc nữ Miuu Silver, vòng cổ nữ hình mặt trăng đính đá Mystery Moonie",
     "price_vnd": 295000,

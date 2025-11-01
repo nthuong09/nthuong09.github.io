@@ -4,15 +4,29 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>MXD Importer-Lite</title>
+  <title>NThương Importer-Lite</title>
   <meta name="robots" content="noindex,nofollow"/>
-  <link rel="canonical" href="https://tuyetlethi83a.github.io/tools/import.html"/>
+  <!-- MXD-CHECK: canonical tuyệt đối theo domain repo này -->
+  <link rel="canonical" href="https://nthuong09.github.io/tools/import.html"/>
 
   <!-- Base styles + MXD -->
   <link rel="stylesheet" href="/assets/site.css"/>
 
   <style>
+    /* Tone màu hồng (khác Tuyet) + nhẹ nhàng */
+    :root{
+      --brand:#c2185b;      /* hồng đậm */
+      --accent:#ff2d8d;     /* hồng neon nhẹ */
+      --ink:#111827;
+      --muted:#6b7280;
+      --panel:#fff5fa;
+      --border:#ffd1e8;
+    }
     header.topbar{position:sticky;top:0;background:#fff;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+    .topbar .brand{color:var(--brand)}
+    .btn{background:var(--brand);border-color:var(--brand)}
+    .btn:hover{filter:brightness(.96)}
+    .btn.outline{background:#fff;color:var(--brand);border:1px solid var(--brand)}
     .tool-wrap{max-width:1100px;margin:0 auto;padding:16px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
@@ -20,9 +34,11 @@
     table{width:100%;border-collapse:collapse}
     th,td{border:1px solid #e5e7eb;padding:6px;vertical-align:top}
     .btn.small{padding:.45rem .7rem;border-radius:10px;font-size:14px}
-    .hint{color:#6b7280;font-size:13px}
+    .hint{color:var(--muted);font-size:13px}
     .drop{border:2px dashed #cbd5e1;border-radius:12px;padding:16px;text-align:center;background:#f8fafc}
-    .drop.drag{background:#eef2ff;border-color:#818cf8}
+    .drop.drag{background:#ffe6f2;border-color:var(--accent)}
+    /* khu log/panel theo tone hồng */
+    .panel{background:var(--panel);border:1px dashed var(--border);border-radius:12px;padding:10px}
   </style>
 
   <!-- GA4 luôn trước affiliate theo MXD -->
@@ -34,18 +50,22 @@
 <body>
 <header class="topbar">
   <div class="container nav">
-    <a class="brand" href="/">Cửa hàng liên kết</a>
+    <a class="brand" href="/">NThương Store</a>
     <nav>
       <a href="/">Trang chủ</a>
       <a href="/store.html">Cửa hàng</a>
+      <a href="/store/thoi-trang.html">Thời trang</a>
+      <a href="/store/my-pham.html">Mỹ phẩm</a>
+      <a href="/store/me-va-be.html">Mẹ & Bé</a>
+      <a href="/store/trang-suc.html">Trang sức</a>
       <a href="/lien-he.html">Liên hệ</a>
     </nav>
   </div>
 </header>
 
 <div class="tool-wrap">
-  <h1>MXD Importer-Lite</h1>
-  <p class="muted">Nhập CSV / thêm nhanh / dán hàng loạt / kéo-thả ảnh → gộp <code>affiliates.json</code> + ZIP ảnh <code>.webp</code> đúng chuẩn <code>/assets/img/products/&lt;sku&gt;.webp</code>.</p>
+  <h1>NThương Importer-Lite</h1>
+  <p class="hint">Nhập CSV / thêm nhanh / dán hàng loạt / kéo-thả ảnh → gộp <code>affiliates.json</code> + ZIP ảnh <code>.webp</code> đúng chuẩn <code>/assets/img/products/&lt;sku&gt;.webp</code>. (Nguồn sự thật khuyến nghị: <code>/assets/data/affiliates.json</code>).</p>
 
   <div class="grid">
     <div>
@@ -63,8 +83,8 @@
         </select>
       </label>
       <br/>
-      <label>Tiền tố SKU (tuỳ chọn): <input id="skuPrefix" placeholder="vd: tt-"/></label>
-      <p class="hint">Ảnh luôn theo chuẩn: <code>/assets/img/products/&lt;sku&gt;.webp</code></p>
+      <label>Tiền tố SKU (tuỳ chọn): <input id="skuPrefix" placeholder="vd: nt-"/></label>
+      <p class="hint">Ảnh theo chuẩn: <code>/assets/img/products/&lt;sku&gt;.webp</code></p>
 
       <h3>3) Hành động dữ liệu</h3>
       <button class="btn small" id="btnParse">Đọc CSV</button>
@@ -74,11 +94,11 @@
 
     <div>
       <h3>Log</h3>
-      <pre id="log" class="mono" style="background:#f8fafc;padding:10px;min-height:120px"></pre>
+      <pre id="log" class="mono panel" style="min-height:120px"></pre>
 
       <h3>Thiết lập map cột</h3>
-      <p class="hint">Có thể sửa tên cột đích: <code>name, price_vnd, origin_url, merchant, sku</code></p>
-      <textarea id="mapBox" class="mono" spellcheck="false"></textarea>
+      <p class="hint">Có thể sửa tên cột đích: <code>name, price_vnd, origin_url, merchant, sku, category</code></p>
+      <textarea id="mapBox" class="mono panel" spellcheck="false"></textarea>
     </div>
   </div>
 
@@ -102,13 +122,13 @@
     </div>
     <div>
       <h3>Danh sách hiện tại</h3>
-      <div id="manualList" class="mono" style="background:#f8fafc;padding:10px;min-height:120px"></div>
+      <div id="manualList" class="mono panel" style="min-height:120px"></div>
     </div>
   </div>
 
   <h3>4b) Thêm hàng loạt (dán mỗi dòng)</h3>
   <p class="hint">Format: <code>Tên | Link | Giá | Merchant?</code> | <em>SKU?</em> (có thể dùng <kbd>|</kbd>, <kbd>,</kbd> hoặc Tab; SKU trống sẽ tự tạo).</p>
-  <textarea id="bulkBox" class="mono" placeholder="Áo Thể Thao | https://shopee.vn/... | 99000 | shopee"></textarea>
+  <textarea id="bulkBox" class="mono panel" placeholder="Áo Thể Thao | https://shopee.vn/... | 99000 | shopee"></textarea>
   <br/>
   <button class="btn small" id="btnBulk">Thêm hàng loạt</button>
 
@@ -120,7 +140,7 @@
       </div>
       <p class="hint">Tool sẽ cố khớp ảnh ↔ SKU theo tên file; có thể sửa SKU trực tiếp trong bảng.</p>
       <button class="btn small" id="btnZip">Tạo ZIP ảnh chuẩn tên</button>
-      <button class="btn small" id="btnNeedList">Tải danh sách SKU cần ảnh</button>
+      <button class="btn small outline" id="btnNeedList">Tải danh sách SKU cần ảnh</button>
     </div>
     <div>
       <h3>Ảnh đã nhận</h3>

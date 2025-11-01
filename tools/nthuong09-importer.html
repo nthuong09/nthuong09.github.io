@@ -88,18 +88,18 @@
   <div class="card">
     <h2>1) Cài đặt</h2>
     <div class="grid g2">
-      <div><label>Worker Base URL</label><input id="workerUrl" placeholder="https://<worker>.<account>.workers.dev"/></div>
+      <div><label>Worker Base URL</label><input id="workerUrl" placeholder="https://&lt;worker&gt;.&lt;account&gt;.workers.dev"/></div>
       <div><label>X-Key (header bảo vệ Worker)</label><input id="xKey" placeholder="Ví dụ: repo-2025-super"/></div>
     </div>
 
     <label>Template Shopee</label>
-    <input id="tplShopee" placeholder="https://go.isclix.com/deep_link/<AFF_ID>/<475158...>?url={url}&sub1={sub1}&sub2={sub2}&sub3={sub3}&sub4={sub4}"/>
+    <input id="tplShopee" placeholder="https://go.isclix.com/deep_link/&lt;AFF_ID&gt;/&lt;475158...&gt;?url={url}&sub1={sub1}&sub2={sub2}&sub3={sub3}&sub4={sub4}"/>
 
     <label>Template Lazada</label>
-    <input id="tplLazada" placeholder="https://go.isclix.com/deep_link/<AFF_ID>/<512714...>?url={url}&sub1={sub1}&sub2={sub2}&sub3={sub3}&sub4={sub4}"/>
+    <input id="tplLazada" placeholder="https://go.isclix.com/deep_link/&lt;AFF_ID&gt;/&lt;512714...&gt;?url={url}&sub1={sub1}&sub2={sub2}&sub3={sub3}&sub4={sub4}"/>
 
     <label>Template TikTok</label>
-    <input id="tplTiktok" placeholder="https://go.isclix.com/deep_link/<AFF_ID>/<664852...>?url={url}&sub1={sub1}&sub2={sub2}&sub3={sub3}&sub4={sub4}"/>
+    <input id="tplTiktok" placeholder="https://go.isclix.com/deep_link/&lt;AFF_ID&gt;/&lt;664852...&gt;?url={url}&sub1={sub1}&sub2={sub2}&sub3={sub3}&sub4={sub4}"/>
 
     <div class="row" style="margin-top:8px">
       <button class="btn" id="btnDetectAff">Tự động lấy từ /assets/mxd-affiliate.js</button>
@@ -351,16 +351,15 @@ document.addEventListener('DOMContentLoaded', () => {
   async function autodetectAff(){
     $("#affStatus").textContent="Đang dò /assets/mxd-affiliate.js…";
     try{
-      const r=await fetch('/assets/mxd-affiliate.js',{cache:'no-cache'}); const txt=await r.text();
-      // tìm first id và từng advertiser id
+      const r=await fetch('/assets/mxd-affiliate.js',{cache:'no-cache'});
+      const txt=await r.text();
       const idRe=/go\.isclix\.com\/deep_link\/(\d+)\/(\d+)/g;
       let firstId=''; const found={};
       for(const m of txt.matchAll(idRe)){
         const aid=m[1], adv=m[2];
         if(!firstId) firstId=aid;
-        found[adv]=aid; // lưu aid theo adv id
+        found[adv]=aid;
       }
-      // các adv id chuẩn (thường dùng)
       const ADV = {
         shopee: '4751584435713464237',
         lazada: '5127144557053758578',
@@ -398,17 +397,31 @@ document.addEventListener('DOMContentLoaded', () => {
     showWarn(bad);
   }
 
-  /* Headers + baseUrl + checks */
-  function hdr(){ const s=readSettings(); const h={'content-type':'application/json'}; if(s.xKey) h['x-key']=s.xKey; return h; }
-  async function check(url){ try{ const r=await fetch(url,{mode:"cors",headers:hdr()}); const text=await r.text().catch(()=>'' ); return {ok:r.ok,status:r.status,text}; }catch(e){ return {ok:false,status:-1,text:String(e)}; } }
+  /* Headers + baseUrl + checks (method-aware) */
+  function hdr(method='GET', useKey=true){
+    const h={};
+    if(['POST','PUT','PATCH'].includes(method)) h['content-type']='application/json';
+    const s=readSettings();
+    if(useKey && s.xKey) h['x-key']=s.xKey;
+    return h;
+  }
+  async function check(url, useKey=false){
+    try{
+      const r=await fetch(url,{mode:"cors",cache:"no-cache",headers:hdr('GET',useKey)});
+      const text=await r.text().catch(()=>'' );
+      return {ok:r.ok,status:r.status,text};
+    }catch(e){
+      return {ok:false,status:-1,text:String(e)};
+    }
+  }
   function baseUrl(){ const s=readSettings(); return (s.workerUrl||'').replace(/\/$/,''); }
 
-  $("#btnCheckWorker").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const u=b+"/health"; const r=await check(u); const msg=r.ok?`Worker OK (${r.status})`:`Worker lỗi (${r.status})`; $("#workerStatus").textContent=msg; log("[/health] "+msg); toast(msg, r.ok?"ok":"err"); };
-  $("#btnCheckAuth").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const u=b+"/whoami"; const r=await check(u); const msg=r.ok?"X-Key hợp lệ.":"X-Key không hợp lệ ("+r.status+")"; log("[/whoami] "+msg+" — "+r.text.slice(0,120)); toast(msg, r.ok?"ok":"err"); };
-  $("#btnCheckWrite").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const u=b+"/can-write"; const r=await check(u); const msg=r.ok?"Có quyền commit.":"Không có quyền ("+r.status+")"; log("[/can-write] "+msg+" — "+r.text.slice(0,120)); toast(msg, r.ok?"ok":"err"); };
-  $("#btnProbeOptions").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } try{ const r=await fetch(b+"/upload-image",{method:"OPTIONS",mode:"cors",headers:hdr()}); log(`[OPTIONS /upload-image] ${r.status}`); toast("Probe OPTIONS /upload-image","ok"); }catch(e){ log("[OPTIONS /upload-image] Lỗi: "+e.message); toast("Probe lỗi.","err"); } };
-  $("#btnProbePublish").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } try{ const r=await fetch(b+"/publish",{method:"OPTIONS",mode:"cors",headers:hdr()}); log(`[OPTIONS /publish] ${r.status}`); toast("Probe OPTIONS /publish","ok"); }catch(e){ log("[OPTIONS /publish] Lỗi: "+e.message); toast("Probe lỗi.","err"); } };
-  $("#btnTestUpload").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const c=document.createElement('canvas'); c.width=1; c.height=1; const blob=await new Promise(res=>c.toBlob(res,'image/webp',0.5)); const dataUrl=await blobToDataURL(blob); try{ const r=await fetch(b+'/upload-image',{method:'POST',mode:'cors',headers:hdr(),body:JSON.stringify({sku:'ping',path:'/assets/img/test/ping.webp',file:dataUrl})}); log(`[TEST UPLOAD] ${r.status} ${r.ok?'OK':'FAIL'}`); toast(r.ok?'Test upload OK':'Test upload FAIL '+r.status, r.ok?'ok':'err'); }catch(e){ log("[TEST UPLOAD] Lỗi: "+e.message); toast("Test upload lỗi.","err"); } };
+  $("#btnCheckWorker").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const u=b+"/health"; const r=await check(u,false); const msg=r.ok?`Worker OK (${r.status})`:`Worker lỗi (${r.status})`; $("#workerStatus").textContent=msg; log("[/health] "+msg+" — "+r.text.slice(0,120)); toast(msg, r.ok?"ok":"err"); };
+  $("#btnCheckAuth").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const u=b+"/whoami"; const r=await check(u,true); const msg=r.ok?"X-Key hợp lệ.":"X-Key không hợp lệ ("+r.status+")"; log("[/whoami] "+msg+" — "+r.text.slice(0,120)); toast(msg, r.ok?"ok":"err"); };
+  $("#btnCheckWrite").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const u=b+"/can-write"; const r=await check(u,true); const msg=r.ok?"Có quyền commit.":"Không có quyền ("+r.status+")"; log("[/can-write] "+msg+" — "+r.text.slice(0,120)); toast(msg, r.ok?"ok":"err"); };
+  $("#btnProbeOptions").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } try{ const r=await fetch(b+"/upload-image",{method:"OPTIONS",mode:"cors",cache:"no-cache",headers:hdr('OPTIONS',true)}); log(`[OPTIONS /upload-image] ${r.status}`); toast("Probe OPTIONS /upload-image","ok"); }catch(e){ log("[OPTIONS /upload-image] Lỗi: "+e.message); toast("Probe lỗi.","err"); } };
+  $("#btnProbePublish").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } try{ const r=await fetch(b+"/publish",{method:"OPTIONS",mode:"cors",cache:"no-cache",headers:hdr('OPTIONS',true)}); log(`[OPTIONS /publish] ${r.status}`); toast("Probe OPTIONS /publish","ok"); }catch(e){ log("[OPTIONS /publish] Lỗi: "+e.message); toast("Probe lỗi.","err"); } };
+  $("#btnTestUpload").onclick=async()=>{ const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const c=document.createElement('canvas'); c.width=1; c.height=1; const blob=await new Promise(res=>c.toBlob(res,'image/webp',0.5)); const dataUrl=await blobToDataURL(blob); try{ const r=await fetch(b+'/upload-image',{method:'POST',mode:'cors',cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify({sku:'ping',path:'/assets/img/test/ping.webp',file:dataUrl})}); log(`[TEST UPLOAD] ${r.status} ${r.ok?'OK':'FAIL'}`); toast(r.ok?'Test upload OK':'Test upload FAIL '+r.status, r.ok?'ok':'err'); }catch(e){ log("[TEST UPLOAD] Lỗi: "+e.message); toast("Test upload lỗi.","err"); } };
 
   /* Deep-link helpers */
   const vn = s => (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase();
@@ -504,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function blobToDataURL(blob){ return new Promise(res=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.readAsDataURL(blob); }); }
   function splitDataUrl(d){ const m = String(d||'').match(/^data:([^;]+);base64,(.+)$/); return m ? { mime:m[1], base64:m[2] } : { mime:'', base64:d||'' }; }
   async function transcodeBlob(blob, fmt, w, h){ const url=URL.createObjectURL(blob); const img=new Image(); await new Promise(r=>{ img.onload=r; img.src=url; }); const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(img,0,0,w,h); const mime = fmt==='png' ? 'image/png' : 'image/webp'; const quality = fmt==='png' ? 1.0 : 0.82; return await new Promise(res=>c.toBlob(res, mime, quality)); }
-  async function uploadItem(it, statusEl){ let path=pathFor(it); try{ if(!it.outBlob){ statusEl.textContent='Đang xử lý'; await queueProcess(it); } const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const dataUrl=await blobToDataURL(it.outBlob); statusEl.textContent='Uploading…'; let r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",headers:hdr(),body:JSON.stringify({ sku:it.name, path, file:dataUrl })}); let text=await r.text().catch(()=>'' ); if(!r.ok){ log(`[upload ${path}] FAIL ${r.status}. Thử base64 thuần… — ${text.slice(0,140)}`); const {mime, base64} = splitDataUrl(dataUrl); r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",headers:hdr(),body:JSON.stringify({ sku:it.name, path, file:base64, mime })}); text=await r.text().catch(()=>'' ); } if(!r.ok && it.fmt!=='webp'){ log(`[upload ${path}] FAIL nữa. Fallback WebP…`); const webpBlob=await transcodeBlob(it.outBlob, 'webp', it.w||1200, it.h||1200); const newDataUrl=await blobToDataURL(webpBlob); const newPath=path.replace(/\.png$/i,'.webp'); r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",headers:hdr(),body:JSON.stringify({ sku:it.name, path:newPath, file:newDataUrl })}); text=await r.text().catch(()=>'' ); if(r.ok){ it.fmt='webp'; it.outBlob=webpBlob; path=newPath; } } if(!r.ok){ statusEl.textContent='Lỗi upload'; log(`[upload ${path}] FAIL cuối ${r.status}: ${text.slice(0,200)}`); toast("Upload lỗi "+r.status,"err"); return; } statusEl.textContent='Đã upload'; it.status='uploaded'; log(`[upload ${path}] OK`); const sku=$("#sku").value.trim(); if(sku && it.name===slugify(sku)) $("#image").value=path; }catch(e){ statusEl.textContent='Lỗi upload'; log(`[upload ${path}] EXC: ${e.message}`); toast("Upload lỗi: "+e.message,"err"); } }
+  async function uploadItem(it, statusEl){ let path=pathFor(it); try{ if(!it.outBlob){ statusEl.textContent='Đang xử lý'; await queueProcess(it); } const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const dataUrl=await blobToDataURL(it.outBlob); statusEl.textContent='Uploading…'; let r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify({ sku:it.name, path, file:dataUrl })}); let text=await r.text().catch(()=>'' ); if(!r.ok){ log(`[upload ${path}] FAIL ${r.status}. Thử base64 thuần… — ${text.slice(0,140)}`); const {mime, base64} = splitDataUrl(dataUrl); r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify({ sku:it.name, path, file:base64, mime })}); text=await r.text().catch(()=>'' ); } if(!r.ok && it.fmt!=='webp'){ log(`[upload ${path}] FAIL nữa. Fallback WebP…`); const webpBlob=await transcodeBlob(it.outBlob, 'webp', it.w||1200, it.h||1200); const newDataUrl=await blobToDataURL(webpBlob); const newPath=path.replace(/\.png$/i,'.webp'); r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify({ sku:it.name, path:newPath, file:newDataUrl })}); text=await r.text().catch(()=>'' ); if(r.ok){ it.fmt='webp'; it.outBlob=webpBlob; path=newPath; } } if(!r.ok){ statusEl.textContent='Lỗi upload'; log(`[upload ${path}] FAIL cuối ${r.status}: ${text.slice(0,200)}`); toast("Upload lỗi "+r.status,"err"); return; } statusEl.textContent='Đã upload'; it.status='uploaded'; log(`[upload ${path}] OK`); const sku=$("#sku").value.trim(); if(sku && it.name===slugify(sku)) $("#image").value=path; }catch(e){ statusEl.textContent='Lỗi upload'; log(`[upload ${path}] EXC: ${e.message}`); toast("Upload lỗi: "+e.message,"err"); } }
 
   $("#btnClearQueue").onclick=()=>{ queue.length=0; renderQueue(); toast('Đã xoá hàng đợi.'); };
   $("#btnConvertAll").onclick=async()=>{ for(const it of queue){ await queueProcess(it); } toast("Đã convert tất cả.","ok"); renderQueue(); };
@@ -514,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Single upload */
   $("#btnConvert").onclick=()=>{ if(!state.imgBlob){ toast("Chưa chọn ảnh.","warn"); return; } toast("Đã nén .webp sẵn.","ok"); };
   $("#btnSaveImg").onclick=()=>{ if(!state.imgBlob){ toast("Chưa có ảnh.","warn"); return; } const a=document.createElement('a'); a.href=URL.createObjectURL(state.imgBlob); a.download=state.imgName||'product.webp'; a.click(); };
-  $("#btnUploadImg").onclick=async()=>{ if(!state.imgBlob){ toast("Chưa có ảnh.","warn"); return; } const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const sku=($("#sku").value.trim()||'tt'); const folder=getSelectedFolder(); const fmt=getSelectedFmt(); const path=`${folder}${slugify(sku)}${extByFmt(fmt)}`; let blob=state.imgBlob; try{ if(fmt==='png'){ blob = await transcodeBlob(state.imgBlob,'png', state.imgW||1200, state.imgH||1200); } const dataUrl=await blobToDataURL(blob); let r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",headers:hdr(),body:JSON.stringify({ sku:slugify(sku), path, file:dataUrl })}); let text=await r.text().catch(()=>'' ); if(!r.ok){ const {mime, base64} = splitDataUrl(dataUrl); r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",headers:hdr(),body:JSON.stringify({ sku:slugify(sku), path, file:base64, mime })}); text=await r.text().catch(()=>'' ); } log(`[single upload ${path}] ${r.status} ${r.ok?'OK':'FAIL'} — ${text.slice(0,160)}`); toast(r.ok?"Đã upload ảnh lên repo.":"Upload ảnh lỗi "+r.status, r.ok?"ok":"err"); if(r.ok) $("#image").value=path; }catch(e){ log("[single upload] EXC: "+e.message); toast("Upload ảnh lỗi: "+e.message,"err"); } };
+  $("#btnUploadImg").onclick=async()=>{ if(!state.imgBlob){ toast("Chưa có ảnh.","warn"); return; } const b=baseUrl(); if(!b){ toast("Chưa cấu hình Worker.","warn"); return; } const sku=($("#sku").value.trim()||'tt'); const folder=getSelectedFolder(); const fmt=getSelectedFmt(); const path=`${folder}${slugify(sku)}${extByFmt(fmt)}`; let blob=state.imgBlob; try{ if(fmt==='png'){ blob = await transcodeBlob(state.imgBlob,'png', state.imgW||1200, state.imgH||1200); } const dataUrl=await blobToDataURL(blob); let r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify({ sku:slugify(sku), path, file:dataUrl })}); let text=await r.text().catch(()=>'' ); if(!r.ok){ const {mime, base64} = splitDataUrl(dataUrl); r=await fetch(b+"/upload-image",{method:"POST",mode:"cors",cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify({ sku:slugify(sku), path, file:base64, mime })}); text=await r.text().catch(()=>'' ); } log(`[single upload ${path}] ${r.status} ${r.ok?'OK':'FAIL'} — ${text.slice(0,160)}`); toast(r.ok?"Đã upload ảnh lên repo.":"Upload ảnh lỗi "+r.status, r.ok?"ok":"err"); if(r.ok) $("#image").value=path; }catch(e){ log("[single upload] EXC: "+e.message); toast("Upload ảnh lỗi: "+e.message,"err"); } };
 
   /* Build JSON & publish */
   function buildJson(){ if(!$("#category").value.trim()){ const text=`${$("#name").value} ${$("#brand").value} ${$("#origin").value}`; const guess=autoCategory(text); if(guess) $("#category").value=guess; } $("#category").value=normCategory($("#category").value); const now=new Date().toISOString(); const obj={ name:$("#name").value.trim(), price_vnd:Number($("#price").value||0), origin_url:cleanUrl($("#origin").value.trim()), merchant:$("#merchant").value, sku:$("#sku").value.trim(), image:$("#image").value.trim(), category:$("#category").value.trim(), brand:$("#brand").value.trim(), featured:$("#featured").checked, status:$("#status").checked, updated_at:now }; const dl=$("#deeplink").value.trim(); if(dl) obj.deeplink=dl; $("#jsonOut").value=JSON.stringify([obj],null,2); return obj; }
@@ -525,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $("#btnPublish").onclick=()=>doPublish(false);
   $("#btnPublishFeatured").onclick=()=>doPublish(true);
 
-  async function doPublish(forceFeatured){ const obj=buildJson(); if(forceFeatured){ obj.featured=true; $("#featured").checked=true; $("#jsonOut").value=JSON.stringify([obj],null,2); } if(!obj.sku){ toast("Thiếu SKU.","err"); return; } if(!obj.origin_url){ toast("Thiếu origin.","warn"); return; } if(!$("#deeplink").value.trim()){ const maybe=activeTplFor($("#merchant").value); if(maybe){ makeDeeplink(); const dl=$("#deeplink").value.trim(); if(dl){ obj.deeplink=dl; $("#jsonOut").value=JSON.stringify([obj],null,2); } } else { showWarn(true); toast("Chưa có template affiliate. Vào Cài đặt để cấu hình.", "warn"); return; } } const b=baseUrl(); if(b){ try{ const r=await fetch(b+"/publish",{method:"POST",mode:"cors",headers:hdr(),body:JSON.stringify(obj)}); const text=await r.text().catch(()=>'' ); log(`[publish ${obj.sku}] ${r.status} ${r.ok?'OK':'FAIL'} — ${text.slice(0,200)}`); if(!r.ok) throw new Error('HTTP '+r.status); toast("Publish OK → store"+(obj.featured?" + nổi bật":""),"ok"); window.scrollTo({top:0,behavior:'smooth'}); return; }catch(e){ toast("Publish lỗi (auto tải JSON để commit tay): "+e.message,"err"); } } const blob=new Blob([JSON.stringify([obj],null,2)],{type:"application/json"}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='affiliates.append.json'; a.click(); }
+  async function doPublish(forceFeatured){ const obj=buildJson(); if(forceFeatured){ obj.featured=true; $("#featured").checked=true; $("#jsonOut").value=JSON.stringify([obj],null,2); } if(!obj.sku){ toast("Thiếu SKU.","err"); return; } if(!obj.origin_url){ toast("Thiếu origin.","warn"); return; } if(!$("#deeplink").value.trim()){ const maybe=activeTplFor($("#merchant").value); if(maybe){ makeDeeplink(); const dl=$("#deeplink").value.trim(); if(dl){ obj.deeplink=dl; $("#jsonOut").value=JSON.stringify([obj],null,2); } } else { showWarn(true); toast("Chưa có template affiliate. Vào Cài đặt để cấu hình.", "warn"); return; } } const b=baseUrl(); if(b){ try{ const r=await fetch(b+"/publish",{method:"POST",mode:"cors",cache:"no-cache",headers:hdr('POST',true),body:JSON.stringify(obj)}); const text=await r.text().catch(()=>'' ); log(`[publish ${obj.sku}] ${r.status} ${r.ok?'OK':'FAIL'} — ${text.slice(0,200)}`); if(!r.ok) throw new Error('HTTP '+r.status); toast("Publish OK → store"+(obj.featured?" + nổi bật":""),"ok"); window.scrollTo({top:0,behavior:'smooth'}); return; }catch(e){ toast("Publish lỗi (auto tải JSON để commit tay): "+e.message,"err"); } } const blob=new Blob([JSON.stringify([obj],null,2)],{type:"application/json"}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='affiliates.append.json'; a.click(); }
 
   /* Verify */
   $("#btnVerify").onclick=async()=>{ const sku=$("#sku").value.trim(); if(!sku){ toast("Chưa có SKU để kiểm tra.","warn"); return; } try{ const r=await fetch('/assets/data/affiliates.json?_='+Date.now(),{cache:'no-cache'}); const arr=await r.json(); const list = Array.isArray(arr)?arr:(arr.items||[]); const found=list.some(x=>(String(x.sku||'').toLowerCase())===sku.toLowerCase()); toast(found?"ĐÃ CÓ trong affiliates.json.":"CHƯA THẤY trong affiliates.json.", found?"ok":"warn"); }catch(e){ toast("Không đọc được assets/data/affiliates.json: "+e.message, "err"); } const url=`/store.html?dev=1&sku=${encodeURIComponent(sku)}&v=${Date.now()}`; window.open(url,'_blank'); };

@@ -1,7 +1,7 @@
 // REPLACE WHOLE FILE: /assets/analytics.js
 (() => {
-  // FIND: GA_ID
-  const GA_ID = "G-6WLTPVXXG6"; // GA4 - tuyetlethi
+  // GA4 for nthuong09
+  const GA_ID = "G-2FQ0YDHWDE";
 
   // Ensure dataLayer + gtag
   window.dataLayer = window.dataLayer || [];

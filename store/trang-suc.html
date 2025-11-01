@@ -43,6 +43,15 @@
 <link rel="stylesheet" href="/assets/site.css"/>
 <!-- GA4 trước affiliate -->
 <script defer src="/assets/analytics.js"></script>
+
+<!-- MXD-AFF BASE (nthuong09) — đặt TRƯỚC mxd-affiliate.js -->
+<script>
+  window.MXD_AFF = {
+    shopee: 'https://go.isclix.com/deep_link/6838510564673741003/4751584435713464237?sub4=oneatweb',
+    tiktok: 'https://go.isclix.com/deep_link/6838510564673741003/6648523843406889655?sub4=oneatweb',
+    lazada: 'https://go.isclix.com/deep_link/6838510564673741003/5127144557053758578?sub4=oneatweb'
+  };
+</script>
 <script defer src="/assets/mxd-affiliate.js"></script>
 </head>
 <body>
@@ -66,7 +75,7 @@
 <footer><div class="container"><small class="muted">© 2025 — NThương Store • MXD Canonical</small></div></footer>
 
 <script>
-/* FIND: category hub loader v2025-11-01-b01 — slug=trang-suc */
+/* FIND: category hub loader v2025-11-01-b02 — slug=trang-suc */
 const SLUG = 'trang-suc';
 const $ = (id)=>document.getElementById(id);
 
@@ -84,7 +93,7 @@ function card(p){
       <img src="${imgPath(p)}" alt="${p.name}"/>
       ${price?`<p style="margin:.5rem .75rem"><strong>${price}</strong></p>`:''}
       <p><span class="badge">${p.merchant||''}</span></p>
-      <p style="margin:.5rem .75rem 1rem"><a class="btn buy" href="#">Mua ngay</a></p>
+      <p style="margin:.5rem .75rem 1rem"><a class="btn buy" href="${origin}">Mua ngay</a></p>
     </div>`;
 }
 

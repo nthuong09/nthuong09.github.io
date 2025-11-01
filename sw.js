@@ -1,8 +1,8 @@
 // REPLACE WHOLE FILE: /sw.js
 // MXD Canonical SW — HTML network-first; assets stale-while-revalidate;
 // data JSON (affiliates/top/prices) network-first with cache fallback.
-// FIND: MXD SW v2025-11-01-nthuong09-p1
-const VERSION = '2025-11-01-nthuong09-p9';
+// FIND: MXD SW v2025-11-02-nthuong09-p10
+const VERSION = '2025-11-02-nthuong09-p10';
 const ASSET_CACHE = 'mxd-assets-' + VERSION;
 
 self.addEventListener('install', (e) => self.skipWaiting());
@@ -31,7 +31,7 @@ self.addEventListener('fetch', (e) => {
     e.respondWith((async () => {
       try {
         const res = await fetch(r);
-        // cache the visited document for offline use (same-origin only)
+        // cache the visited document for offline (same-origin only)
         if (u.origin === location.origin && res.ok) {
           const c = await caches.open(ASSET_CACHE);
           c.put(r, res.clone());
@@ -41,7 +41,9 @@ self.addEventListener('fetch', (e) => {
         // try exact page (ignore search), then index.html, then /
         const cachedExact = await caches.match(r, { ignoreSearch: true });
         if (cachedExact) return cachedExact;
-        const cachedIndex = await caches.match('/index.html', { ignoreSearch: true }) || await caches.match('/', { ignoreSearch: true });
+        const cachedIndex =
+          (await caches.match('/index.html', { ignoreSearch: true })) ||
+          (await caches.match('/', { ignoreSearch: true }));
         return cachedIndex || Response.error();
       }
     })());
@@ -65,7 +67,10 @@ self.addEventListener('fetch', (e) => {
       } catch {
         const cached = await caches.match(r);
         if (cached) return cached;
-        return new Response('[]', { status: 200, headers: { 'content-type': 'application/json; charset=utf-8' } });
+        return new Response('[]', {
+          status: 200,
+          headers: { 'content-type': 'application/json; charset=utf-8' }
+        });
       }
     })());
     return;
@@ -76,7 +81,9 @@ self.addEventListener('fetch', (e) => {
     e.respondWith((async () => {
       const c = await caches.open(ASSET_CACHE);
       const cached = await c.match(r);
-      const fetching = fetch(r).then(n => { c.put(r, n.clone()); return n; }).catch(() => null);
+      const fetching = fetch(r)
+        .then(n => { c.put(r, n.clone()); return n; })
+        .catch(() => null);
       return cached || fetching || fetch(r);
     })());
   }

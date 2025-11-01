@@ -18,65 +18,36 @@
   <!-- THEME: Pink (Hường) — chỉ áp dụng cho trang chủ -->
   <style>
     :root{
-      --brand:#c2185b;         /* pink 700 */
-      --brand-2:#ff6fb1;       /* pastel pink */
-      --accent:#ff2d8d;        /* hot pink (buttons) */
-      --cta:#ff82c3;
-      --text:#251a24;
-      --muted:#6b5f67;
-      --bg:#fff;
-      --hero-text:#fff;
-      --tile-shadow: 0 10px 30px rgba(194,24,91,.18);
-      --tile-radius: 20px;
+      --brand:#c2185b; --brand-2:#ff6fb1; --accent:#ff2d8d; --cta:#ff82c3;
+      --text:#251a24; --muted:#6b5f67; --bg:#fff; --hero-text:#fff;
+      --tile-shadow: 0 10px 30px rgba(194,24,91,.18); --tile-radius: 20px;
     }
     body{background:var(--bg); color:var(--text);}
-    .hero{
-      color:var(--hero-text);
-      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
-      padding:48px 0;
-    }
+    .hero{color:var(--hero-text); background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%); padding:48px 0;}
     .topbar{background:#fff5fa;border-bottom:1px solid #ffd1e8}
     .topbar .nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:10px 0}
     .brand{font-weight:800;color:var(--brand);text-decoration:none}
     .topbar nav a{margin:0 10px;color:#7c3b57;text-decoration:none}
     .topbar nav a:hover{color:var(--brand)}
-
     .container{max-width:1080px;margin:0 auto;padding:0 16px}
     .muted{color:var(--muted)}
     .btn{display:inline-block;padding:.65rem 1rem;border-radius:999px;text-decoration:none;border:1px solid transparent}
     .btn:hover{transform:translateY(-1px)}
     .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(255,45,141,.25)}
     .btn.outline{background:transparent;border-color:#ffd1e8;color:#fff}
-
-    /* CATEGORY TILES — layout mới khác tuyetlethi: 2×2 card lớn */
-    #featured-cats .category-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(280px,1fr));
-      gap:20px;
-    }
+    /* CATEGORY TILES — layout 2×2 */
+    #featured-cats .category-grid{display:grid; grid-template-columns:repeat(2, minmax(280px,1fr)); gap:20px;}
     @media (max-width:900px){ #featured-cats .category-grid{ grid-template-columns:1fr; } }
-    .category-tile{
-      position:relative;display:block;border-radius:var(--tile-radius);overflow:hidden;
-      box-shadow:var(--tile-shadow);background:#fff
-    }
-    .category-tile img{
-      display:block;width:100%;height:220px;object-fit:cover;filter:saturate(1.08)
-    }
-    .category-tile span{
-      position:absolute;left:14px;bottom:14px;
-      background:rgba(255,255,255,.92);backdrop-filter:saturate(1.2) blur(2px);
-      padding:.45rem .75rem;border-radius:999px;font-weight:700;color:#7c2a4b
-    }
-
-    /* PRODUCT CARDS (giữ khác nhẹ: viền pastel + badge tròn) */
+    .category-tile{position:relative;display:block;border-radius:var(--tile-radius);overflow:hidden; box-shadow:var(--tile-shadow);background:#fff}
+    .category-tile img{display:block;width:100%;height:220px;object-fit:cover;filter:saturate(1.08)}
+    .category-tile span{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.2) blur(2px); padding:.45rem .75rem;border-radius:999px;font-weight:700;color:#7c2a4b}
+    /* PRODUCT CARDS */
     .product-grid{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:16px}
     @media (max-width:1100px){ .product-grid{grid-template-columns:repeat(3,1fr);} }
     @media (max-width:720px){ .product-grid{grid-template-columns:repeat(2,1fr);} }
     .product-card{border:1px solid #ffd1e8;border-radius:16px;overflow:hidden;background:#fff}
     .product-card img{width:100%;height:200px;object-fit:cover}
-    .product-card .badge{
-      display:inline-block;background:#ffe3f0;color:#a31754;border-radius:999px;padding:.15rem .55rem;margin:.25rem 0
-    }
+    .product-card .badge{display:inline-block;background:#ffe3f0;color:#a31754;border-radius:999px;padding:.15rem .55rem;margin:.25rem 0}
     .product-card p{margin:.25rem .75rem}
     .actions .btn{margin-right:.5rem}
     footer{background:#fff5fa;margin-top:40px}
@@ -85,6 +56,15 @@
   <link rel="stylesheet" href="/assets/site.css"/>
   <!-- GA4 trước affiliate -->
   <script defer src="/assets/analytics.js"></script>
+
+  <!-- MXD-AFF BASE (nthuong09) — đặt TRƯỚC mxd-affiliate.js -->
+  <script>
+    window.MXD_AFF = {
+      shopee: 'https://go.isclix.com/deep_link/6838510564673741003/4751584435713464237?sub4=oneatweb',
+      tiktok: 'https://go.isclix.com/deep_link/6838510564673741003/6648523843406889655?sub4=oneatweb',
+      lazada: 'https://go.isclix.com/deep_link/6838510564673741003/5127144557053758578?sub4=oneatweb'
+    };
+  </script>
   <script defer src="/assets/mxd-affiliate.js"></script>
 
   <!-- JSON-LD Organization -->
@@ -130,17 +110,14 @@
         <img src="/assets/img/categories/thoi-trang.webp" alt="Thời trang — NThương Store" width="600" height="220" loading="lazy"/>
         <span>Thời trang</span>
       </a>
-
       <a class="category-tile" href="/store/my-pham.html">
         <img src="/assets/img/categories/my-pham.webp" alt="Mỹ phẩm — NThương Store" width="600" height="220" loading="lazy"/>
         <span>Mỹ phẩm</span>
       </a>
-
       <a class="category-tile" href="/store/me-va-be.html">
         <img src="/assets/img/categories/me-va-be.webp" alt="Mẹ & Bé — NThương Store" width="600" height="220" loading="lazy"/>
         <span>Mẹ & Bé</span>
       </a>
-
       <a class="category-tile" href="/store/trang-suc.html">
         <img src="/assets/img/categories/trang-suc.webp" alt="Trang sức — NThương Store" width="600" height="220" loading="lazy"/>
         <span>Trang sức</span>
@@ -186,7 +163,7 @@
         <img src="${imgPath(p)}" alt="${p.name}"/>
         ${price?`<p><strong>${price}</strong></p>`:''}
         <p><span class="badge">${p.merchant||''}</span></p>
-        <p><a class="btn" style="background:#ff2d8d;color:#fff" href="#">Mua ngay</a></p>
+        <p><a class="btn" style="background:#ff2d8d;color:#fff" href="${origin}">Mua ngay</a></p>
       </div>`;
   }
 

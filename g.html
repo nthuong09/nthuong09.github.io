@@ -1,29 +1,59 @@
 <!-- REPLACE WHOLE FILE: /g.html -->
-<!doctype html><html lang="vi"><head>
+<!doctype html>
+<html lang="vi">
+<head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Sản phẩm | MXD</title>
-  <meta id="desc" name="description" content="Trang sản phẩm MXD. Vui lòng bật JavaScript."/>
-  <link id="canonical" rel="canonical" href="https://tuyetlethi83a.github.io/g.html"/>
+
+  <title>Sản phẩm | NThương Store</title>
+  <meta id="desc" name="description" content="Trang sản phẩm NThương Store. Vui lòng bật JavaScript."/>
+  <link id="canonical" rel="canonical" href="https://nthuong09.github.io/g.html"/>
   <meta id="robots" name="robots" content="index,follow"/>
-  <meta property="og:title" content="Sản phẩm | MXD"/>
+
+  <meta property="og:title" content="Sản phẩm | NThương Store"/>
   <meta id="ogdesc" property="og:description" content="Trang sản phẩm theo SKU từ affiliates.json"/>
-  <meta id="ogurl" property="og:url" content="https://tuyetlethi83a.github.io/g.html"/>
-  <meta id="ogimg" property="og:image" content="https://tuyetlethi83a.github.io/assets/og/default-og.webp"/>
+  <meta id="ogurl" property="og:url" content="https://nthuong09.github.io/g.html"/>
+  <meta id="ogimg" property="og:image" content="https://nthuong09.github.io/assets/og/default-og.webp"/>
+
+  <!-- THEME: Pink (Hường) cho trang sản phẩm -->
+  <style>
+    :root{
+      --brand:#c2185b; --accent:#ff2d8d; --border:#ffd1e8;
+      --text:#251a24; --muted:#6b5f67; --bg:#fff;
+    }
+    body{background:var(--bg); color:var(--text);}
+    .topbar{background:#fff5fa;border-bottom:1px solid var(--border)}
+    .topbar .nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:10px 0}
+    .brand{font-weight:800;color:var(--brand);text-decoration:none}
+    .topbar nav a{margin:0 10px;color:#7c3b57;text-decoration:none}
+    .topbar nav a:hover{color:var(--brand)}
+    .container{max-width:980px;margin:0 auto;padding:0 16px}
+    h1{margin:16px 0 8px}
+    .muted{color:var(--muted)}
+    .product-card{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
+    .product-card img{width:100%;height:320px;object-fit:cover}
+    .product-card .badge{display:inline-block;background:#ffe3f0;color:#a31754;border-radius:999px;padding:.15rem .55rem;margin:.25rem 0}
+    .btn{display:inline-block;padding:.6rem 1rem;border-radius:999px;text-decoration:none;border:1px solid transparent}
+    .btn.buy{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(255,45,141,.25)}
+    footer{background:#fff5fa;margin-top:28px}
+  </style>
+
   <link rel="stylesheet" href="/assets/site.css"/>
+  <!-- GA4 trước affiliate -->
   <script defer src="/assets/analytics.js"></script>
   <script defer src="/assets/mxd-affiliate.js"></script>
 </head>
 <body>
 <header class="topbar">
   <div class="container nav">
-    <a class="brand" href="/">Cửa hàng liên kết</a>
+    <a class="brand" href="/">NThương Store</a>
     <nav>
       <a href="/">Trang chủ</a>
       <a href="/store.html">Cửa hàng</a>
       <a href="/store/thoi-trang.html">Thời trang</a>
       <a href="/store/my-pham.html">Mỹ phẩm</a>
       <a href="/store/me-va-be.html">Mẹ & Bé</a>
+      <a href="/store/trang-suc.html">Trang sức</a>
       <a href="/lien-he.html">Liên hệ</a>
     </nav>
   </div>
@@ -31,7 +61,7 @@
 
 <header class="container"><h1 id="title">Sản phẩm</h1></header>
 <div class="container" id="content"><p>Đang tải…</p></div>
-<footer><div class="container"><small class="muted">Lấy dữ liệu từ affiliates.json qua ?sku=</small></div></footer>
+<footer><div class="container"><small class="muted">Dữ liệu từ affiliates.json qua ?sku= • GA4 trước affiliate</small></div></footer>
 
 <script>
 /* FIND: g.html loader v2025-10-31 — tries /assets/data/affiliates.json then /affiliates.json */
@@ -49,7 +79,7 @@ function setMeta(p, imgAbs){
   ogimg.setAttribute('content', imgAbs);
   desc.setAttribute('content', p.name);
   ogdesc.setAttribute('content', p.name);
-  document.title = p.name + ' | MXD';
+  document.title = p.name + ' | NThương Store';
 }
 
 async function loadAffiliates(){
@@ -102,9 +132,9 @@ document.addEventListener('DOMContentLoaded', async ()=>{
        data-img="${p.image||('/assets/img/products/'+p.sku+'.webp')}"
        ${Number.isFinite(priceNum)?`data-price="${priceNum}"`:''}>${p.name}</a>
     <img src="${p.image || ('/assets/img/products/'+p.sku+'.webp')}" alt="${p.name}"/>
-    ${price?`<p><strong>${price}</strong></p>`:''}
-    <p><span class="badge">${p.merchant||''}</span></p>
-    <p><a class="btn buy" href="#">Mua ngay</a></p>
+    ${price?`<p style="margin:.5rem .75rem"><strong>${price}</strong></p>`:''}
+    <p style="margin:.25rem .75rem"><span class="badge">${p.merchant||''}</span></p>
+    <p style="margin:.5rem .75rem 1rem"><a class="btn buy" href="#">Mua ngay</a></p>
   </div>`;
 
   // MXD-CHECK: SW register
@@ -113,4 +143,5 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   }
 });
 </script>
-</body></html>
+</body>
+</html>

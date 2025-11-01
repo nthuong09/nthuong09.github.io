@@ -5,33 +5,81 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-  <title>Tuyet Store</title>
-  <meta name="description" content="Cửa hàng liên kết chuẩn MXD: Danh mục nổi bật và Sản phẩm nổi bật."/>
-  <link rel="canonical" href="https://tuyetlethi83a.github.io/"/>
+  <title>NThương Store — Cửa hàng liên kết</title>
+  <meta name="description" content="NThương Store: Deal xinh cho người xinh. Danh mục nổi bật & sản phẩm nổi bật cập nhật hằng ngày."/>
+  <link rel="canonical" href="https://nthuong09.github.io/"/>
   <meta name="robots" content="index,follow"/>
 
-  <meta property="og:title" content="Cửa hàng liên kết"/>
-  <meta property="og:description" content="Danh mục nổi bật + Sản phẩm nổi bật từ affiliates.json"/>
-  <meta property="og:url" content="https://tuyetlethi83a.github.io/"/>
-  <meta property="og:image" content="https://tuyetlethi83a.github.io/assets/og/default-og.webp"/>
+  <meta property="og:title" content="NThương Store — Cửa hàng liên kết"/>
+  <meta property="og:description" content="Tone hồng yêu chiều đôi mắt. Danh mục nổi bật & sản phẩm nổi bật từ affiliates.json."/>
+  <meta property="og:url" content="https://nthuong09.github.io/"/>
+  <meta property="og:image" content="https://nthuong09.github.io/assets/og/default-og.webp"/>
 
-  <!-- Palette nhẹ (override site.css nếu cần) -->
+  <!-- THEME: Pink (Hường) — chỉ áp dụng cho trang chủ -->
   <style>
     :root{
-      --brand:#0b3b5b; --accent:#00bfa6; --cta:#ff6b00;
-      --text:#111827; --muted:#6b7280; --bg:#fff;
+      --brand:#c2185b;         /* pink 700 */
+      --brand-2:#ff6fb1;       /* pastel pink */
+      --accent:#ff2d8d;        /* hot pink (buttons) */
+      --cta:#ff82c3;
+      --text:#251a24;
+      --muted:#6b5f67;
+      --bg:#fff;
       --hero-text:#fff;
+      --tile-shadow: 0 10px 30px rgba(194,24,91,.18);
+      --tile-radius: 20px;
     }
-    .hero{background:var(--brand); color:var(--hero-text);}
-    .badge{background:var(--accent); color:#fff; border-radius:999px; padding:.15rem .5rem; display:inline-block}
-    /* Hiển thị 4 tile danh mục nổi bật trên trang chủ */
+    body{background:var(--bg); color:var(--text);}
+    .hero{
+      color:var(--hero-text);
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+      padding:48px 0;
+    }
+    .topbar{background:#fff5fa;border-bottom:1px solid #ffd1e8}
+    .topbar .nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:10px 0}
+    .brand{font-weight:800;color:var(--brand);text-decoration:none}
+    .topbar nav a{margin:0 10px;color:#7c3b57;text-decoration:none}
+    .topbar nav a:hover{color:var(--brand)}
+
+    .container{max-width:1080px;margin:0 auto;padding:0 16px}
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;padding:.65rem 1rem;border-radius:999px;text-decoration:none;border:1px solid transparent}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(255,45,141,.25)}
+    .btn.outline{background:transparent;border-color:#ffd1e8;color:#fff}
+
+    /* CATEGORY TILES — layout mới khác tuyetlethi: 2×2 card lớn */
     #featured-cats .category-grid{
       display:grid;
-      grid-template-columns:repeat(4, minmax(220px,1fr));
-      gap:1rem;
+      grid-template-columns:repeat(2, minmax(280px,1fr));
+      gap:20px;
     }
-    @media (max-width:1024px){ #featured-cats .category-grid{ grid-template-columns:repeat(3,1fr);} }
-    @media (max-width:640px){ #featured-cats .category-grid{ grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:900px){ #featured-cats .category-grid{ grid-template-columns:1fr; } }
+    .category-tile{
+      position:relative;display:block;border-radius:var(--tile-radius);overflow:hidden;
+      box-shadow:var(--tile-shadow);background:#fff
+    }
+    .category-tile img{
+      display:block;width:100%;height:220px;object-fit:cover;filter:saturate(1.08)
+    }
+    .category-tile span{
+      position:absolute;left:14px;bottom:14px;
+      background:rgba(255,255,255,.92);backdrop-filter:saturate(1.2) blur(2px);
+      padding:.45rem .75rem;border-radius:999px;font-weight:700;color:#7c2a4b
+    }
+
+    /* PRODUCT CARDS (giữ khác nhẹ: viền pastel + badge tròn) */
+    .product-grid{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:16px}
+    @media (max-width:1100px){ .product-grid{grid-template-columns:repeat(3,1fr);} }
+    @media (max-width:720px){ .product-grid{grid-template-columns:repeat(2,1fr);} }
+    .product-card{border:1px solid #ffd1e8;border-radius:16px;overflow:hidden;background:#fff}
+    .product-card img{width:100%;height:200px;object-fit:cover}
+    .product-card .badge{
+      display:inline-block;background:#ffe3f0;color:#a31754;border-radius:999px;padding:.15rem .55rem;margin:.25rem 0
+    }
+    .product-card p{margin:.25rem .75rem}
+    .actions .btn{margin-right:.5rem}
+    footer{background:#fff5fa;margin-top:40px}
   </style>
 
   <link rel="stylesheet" href="/assets/site.css"/>
@@ -41,7 +89,7 @@
 
   <!-- JSON-LD Organization -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"MXD","url":"https://tuyetlethi83a.github.io/","logo":"https://tuyetlethi83a.github.io/assets/og/default-og.webp","sameAs":["https://facebook.com/lethituyet.le.3"]}
+  {"@context":"https://schema.org","@type":"Organization","name":"NThương Store","url":"https://nthuong09.github.io/","logo":"https://nthuong09.github.io/assets/og/default-og.webp","sameAs":["https://www.facebook.com/profile.php?id=61562376418436"]}
   </script>
 </head>
 <body>
@@ -49,7 +97,7 @@
 <!-- NAV -->
 <header class="topbar">
   <div class="container nav">
-    <a class="brand" href="/">Cửa hàng</a>
+    <a class="brand" href="/">NThương Store</a>
     <nav>
       <a href="/">Trang chủ</a>
       <a href="/store.html">Cửa hàng</a>
@@ -64,65 +112,60 @@
 
 <section class="hero">
   <div class="container">
-    <h1>Cửa hàng liên kết</h1>
-    <p class="muted">GA4 trước affiliate • Canonical tuyệt đối • SW bật sẵn</p>
-    <div class="actions">
-      <a class="btn" href="/store.html">Vào Store</a>
-      <a class="btn outline" href="/g.html?sku=ao-croptop-ba-lo-nu-toptify">Xem trang sản phẩm (demo)</a>
+    <h1 style="margin:0 0 8px">Tone Hồng — Deal xinh cho người xinh</h1>
+    <p class="muted" style="color:#ffe5f2">Chuẩn MXD: GA4 trước affiliate • Canonical tuyệt đối • SW tối ưu cache</p>
+    <div class="actions" style="margin-top:14px">
+      <a class="btn primary" href="/store.html">Khám phá ngay</a>
+      <a class="btn outline" href="/g.html?sku=ao-croptop-ba-lo-nu-toptify">Xem sản phẩm mẫu</a>
     </div>
   </div>
 </section>
 
 <main>
-  <!-- Danh mục nổi bật -->
-  <section class="container" id="featured-cats">
-    <h2>Danh mục nổi bật</h2>
-    <ul class="category-grid">
-      <li>
-        <a class="category-tile" href="/store/thoi-trang.html">
-          <img src="/assets/img/categories/thoi-trang.webp" alt="Thời trang — MXD" width="400" height="240" loading="lazy"/>
-          <span>Thời trang</span>
-        </a>
-      </li>
-      <li>
-        <a class="category-tile" href="/store/my-pham.html">
-          <img src="/assets/img/categories/my-pham.webp" alt="Mỹ phẩm — MXD" width="400" height="240" loading="lazy"/>
-          <span>Mỹ phẩm</span>
-        </a>
-      </li>
-      <li>
-        <a class="category-tile" href="/store/me-va-be.html">
-          <img src="/assets/img/categories/me-va-be.webp" alt="Mẹ & Bé — MXD" width="400" height="240" loading="lazy"/>
-          <span>Mẹ & Bé</span>
-        </a>
-      </li>
-      <li>
-        <a class="category-tile" href="/store/trang-suc.html">
-          <img src="/assets/img/categories/trang-suc.webp" alt="Trang sức — MXD" width="400" height="240" loading="lazy"/>
-          <span>Trang sức</span>
-        </a>
-      </li>
-    </ul>
-    <p style="margin-top:1rem"><a class="btn" href="/store.html">Xem tất cả danh mục</a></p>
+  <!-- Danh mục nổi bật (2×2) -->
+  <section class="container" id="featured-cats" style="margin-top:28px">
+    <h2 style="margin:6px 0 14px">Danh mục yêu thích</h2>
+    <div class="category-grid">
+      <a class="category-tile" href="/store/thoi-trang.html">
+        <img src="/assets/img/categories/thoi-trang.webp" alt="Thời trang — NThương Store" width="600" height="220" loading="lazy"/>
+        <span>Thời trang</span>
+      </a>
+
+      <a class="category-tile" href="/store/my-pham.html">
+        <img src="/assets/img/categories/my-pham.webp" alt="Mỹ phẩm — NThương Store" width="600" height="220" loading="lazy"/>
+        <span>Mỹ phẩm</span>
+      </a>
+
+      <a class="category-tile" href="/store/me-va-be.html">
+        <img src="/assets/img/categories/me-va-be.webp" alt="Mẹ & Bé — NThương Store" width="600" height="220" loading="lazy"/>
+        <span>Mẹ & Bé</span>
+      </a>
+
+      <a class="category-tile" href="/store/trang-suc.html">
+        <img src="/assets/img/categories/trang-suc.webp" alt="Trang sức — NThương Store" width="600" height="220" loading="lazy"/>
+        <span>Trang sức</span>
+      </a>
+    </div>
+    <p style="margin-top:14px"><a class="btn" style="border-color:#ffc5e6;color:#a31754" href="/store.html">Xem tất cả danh mục</a></p>
   </section>
 
   <!-- Sản phẩm nổi bật -->
-  <section class="container">
-    <h2>Sản phẩm nổi bật</h2>
+  <section class="container" style="margin-top:26px">
+    <h2 style="margin:6px 0 12px">Sản phẩm nổi bật</h2>
     <div id="featured" class="product-grid"><p>Đang tải…</p></div>
-    <p style="margin-top:1rem"><a class="btn" href="/store.html">Xem thêm sản phẩm</a></p>
+    <p style="margin-top:10px"><a class="btn" style="border-color:#ffc5e6;color:#a31754" href="/store.html">Xem thêm sản phẩm</a></p>
   </section>
 </main>
 
 <footer>
-  <div class="container"><small class="muted">© 2025 — MXD Canonical.</small></div>
+  <div class="container" style="padding:16px 0"><small class="muted">© 2025 — NThương Store • Chuẩn MXD Canonical</small></div>
 </footer>
 
 <!-- Nút nổi liên hệ -->
 <div class="floating-contacts">
-  <a class="btn" href="https://zalo.me/0979527398">Zalo</a>
-  <a class="btn" href="https://facebook.com/lethituyet.le.3" target="_blank" rel="noopener">Facebook</a>
-  <a class="btn" href="tel:0979527398">Gọi 0979527398</a>
+  <a class="btn" href="https://zalo.me/0912251646">Zalo</a>
+  <a class="btn" href="https://www.facebook.com/profile.php?id=61562376418436" target="_blank" rel="noopener">Facebook</a>
+  <a class="btn" href="tel:0912251646">Gọi 0912251646</a>
 </div>
 
 <script>
@@ -143,7 +186,7 @@
         <img src="${imgPath(p)}" alt="${p.name}"/>
         ${price?`<p><strong>${price}</strong></p>`:''}
         <p><span class="badge">${p.merchant||''}</span></p>
-        <p><a class="btn buy" href="#">Mua ngay</a></p>
+        <p><a class="btn" style="background:#ff2d8d;color:#fff" href="#">Mua ngay</a></p>
       </div>`;
   }
 

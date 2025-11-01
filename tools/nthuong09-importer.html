@@ -190,10 +190,10 @@
             <label>Danh mục (category)</label>
             <input id="category" data-clear placeholder="thoi-trang / my-pham / me-va-be / trang-suc" list="presetCats"/>
             <datalist id="presetCats">
-              <option value="thoi-trang"/>
-              <option value="my-pham"/>
-              <option value="me-va-be"/>
-              <option value="trang-suc"/>
+              <option value="thoi-trang"></option>
+              <option value="my-pham"></option>
+              <option value="me-va-be"></option>
+              <option value="trang-suc"></option>
             </datalist>
           </div>
         </div>
@@ -283,7 +283,7 @@
 
 <script>
 /* ===== MXD-TOOL v4.3.9-pro4 (aff-detector, debrand, safe templates) ===== */
-document.addEventListener('DOMContentLoaded', () => {
+function initImporter() {
   const $ = s => document.querySelector(s);
 
   /* SITE_ID theo hostname */
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showWarn(true);
     }
   }
-  $("#btnDetectAff").onclick=autodetectAff);
+  $("#btnDetectAff").onclick=autodetectAff;
 
   function checkAffTemplatesWarn(){
     const s=readSettings();
@@ -560,7 +560,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // initial render
   renderQueue();
-});
+}
+
+/* Boot ngay cả khi DOMContentLoaded đã bắn trước đó */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initImporter);
+} else {
+  initImporter();
+}
 </script>
 <!-- debrand + SAFE: không hardcode ID; có autodetect + cảnh báo -->
 </body>
